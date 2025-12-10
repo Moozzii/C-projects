@@ -1,14 +1,14 @@
-#include <cmath>
-#include <string>
 #include <vector>
-#include <map>
+#include <string>
 #include <functional>
-#include <iostream>
+#include <map>
+#include <cmath>
 #include <algorithm>
+#include <stdexcept>
 
 class Neuron {
-    std::vector<float> x, w;
-    float b;
+    std::vector<float> weights;
+    float bias;
     std::function<float(float)> activation;
 
     inline static std::map<std::string, std::function<float(float)>> activations = {
@@ -18,21 +18,24 @@ class Neuron {
     };
 
 public:
-    Neuron(const std::vector<float>& xVal, const std::vector<float>& wVal, float bVal, const std::string& activationType)
-        : x(xVal), w(wVal), b(bVal) 
+    // Constructor
+    Neuron(const std::vector<float>& w, float b, const std::string& activationType)
+        : weights(w), bias(b)
     {
         if (activations.find(activationType) == activations.end())
             throw std::invalid_argument("Unknown activation function");
         activation = activations[activationType];
     }
 
-    std::vector<float> compute() const {
-        std::vector<float> linearOutputs(x.size());
-        for (size_t i = 0; i < x.size(); ++i)
-            linearOutputs[i] = w[i] * x[i] + b;
+    float forward(const std::vector<float>& input) const {
+        if (input.size() != weights.size())
+            throw std::invalid_argument("Input size must match weights size");
 
-        std::vector<float> activatedOutputs(x.size());
-        std::transform(linearOutputs.begin(), linearOutputs.end(), activatedOutputs.begin(), activation);
-        return activatedOutputs;
+        float sum = 0.0f;
+        for (size_t i = 0; i < input.size(); ++i)
+            sum += input[i] * weights[i];
+
+        sum += bias;
+        return activation(sum);
     }
 };
