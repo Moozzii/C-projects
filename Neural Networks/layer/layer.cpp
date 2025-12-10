@@ -18,7 +18,7 @@ public:
     }
 
     std::vector<float> forward(const std::vector<float>& input) {
-        std::vector<float> outputs;
+        std::vector<float> outputs(neurons.size());
         for (auto& neuron : neurons)
             outputs.push_back(neuron.forward(input));
 
