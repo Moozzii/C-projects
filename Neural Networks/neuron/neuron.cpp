@@ -7,18 +7,18 @@
 #include <stdexcept>
 
 class Neuron {
-    std::vector<float> weights;
-    float bias;
-    std::function<float(float)> activation;
+    public:
+        std::vector<float> weights;
+        float bias;
+        std::function<float(float)> activation;
 
-    inline static std::map<std::string, std::function<float(float)>> activations = {
-        {"ReLU", [](float v){ return std::max(0.0f, v); }},
-        {"Sigmoid", [](float v){ return 1.0f / (1.0f + std::exp(-v)); }},
-        {"tanh", [](float v){ return std::tanh(v); }}
-    };
+        inline static std::map<std::string, std::function<float(float)>> activations = {
+            {"ReLU", [](float v){ return std::max(0.0f, v); }},
+            {"Sigmoid", [](float v){ return 1.0f / (1.0f + std::exp(-v)); }},
+            {"tanh", [](float v){ return std::tanh(v); }}
+        };
 
-public:
-    Neuron(const std::vector<float>& w, float b, const std::string& activationType)
+    Neuron(std::vector<float>& w, float b, const std::string& activationType)
         : weights(w), bias(b)
     {
         if (activations.find(activationType) == activations.end())
@@ -26,7 +26,7 @@ public:
         activation = activations[activationType];
     }
 
-    float forward(const std::vector<float>& input) const {
+    float forward(std::vector<float>& input) const {
         if (input.size() != weights.size())
             throw std::invalid_argument("Input size must match weights size");
 

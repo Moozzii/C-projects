@@ -2,11 +2,11 @@
 #include <string>
 
 class Neuron {
-    std::vector<float> w;
-    float b;
-    std::string activationType;
+    public:
+        std::vector<float> w;
+        float b;
+        std::string activationType;
 
-public:
-    Neuron(const std::vector<float>& w, float b, const std::string& activationType);
-    float forward(const std::vector<float>& input);
+        Neuron(std::vector<float>& w, float b);
+        float forward(std::vector<float>& input, const std::string& activationType);
 };
