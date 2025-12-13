@@ -18,7 +18,6 @@ class Neuron {
     };
 
 public:
-    // Constructor
     Neuron(const std::vector<float>& w, float b, const std::string& activationType)
         : weights(w), bias(b)
     {
