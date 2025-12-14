@@ -7,5 +7,5 @@ class Network {
         std::vector<Layer> layers;
         double learningrate;
         Network(double lr, std::string activefunc){};
-        std::vector<float> forward(std::vector<float> input){};
+        std::vector<float> forward(std::vector<float> input){return input;};
     };
