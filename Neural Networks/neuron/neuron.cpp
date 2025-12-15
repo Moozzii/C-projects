@@ -12,12 +12,13 @@ class Neuron {
     std::vector<float> previousInput;
     std::string activationType;
     float activatedOutput;
+    float delta;
     float z;
 
     inline static std::map<std::string, std::function<float(float)>> activations = {
-        {"relu", [](float v){ return std::max(0.0f, v); }},
-        {"sigmoid", [](float v){ return 1.0f / (1.0f + std::exp(-v)); }},
-        {"tanh", [](float v){ return std::tanh(v); }}
+        {"relu", [](float x){ return std::max(0.0f, x); }},
+        {"sigmoid", [](float x){ return 1.0f / (1.0f + std::exp(-x)); }},
+        {"tanh", [](float x){ return std::tanh(x); }}
     };
     
     public:

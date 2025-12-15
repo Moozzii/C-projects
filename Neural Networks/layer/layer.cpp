@@ -20,10 +20,8 @@ class Layer {
         }
 
         std::vector<float> forward(std::vector<float>& input) {
-            
             for (auto& neuron : neurons)
                 outputs.push_back(neuron.forward(input, activationType));
-
             return outputs;
         }
 };

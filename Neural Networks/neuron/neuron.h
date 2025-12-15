@@ -9,6 +9,7 @@ class Neuron {
         std::vector<float> previousInput;
         std::string activationType;
         float activatedOutput;
+        float delta;
         float z;
 
         Neuron(std::vector<float>& w, float b);
